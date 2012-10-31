@@ -47,7 +47,7 @@ define mcollective::plugins::plugin(
   file { "${plugin_base_real}/${type}/${name}.rb":
     ensure => $ensure,
     source => "${module_source}/${type}/${name}.rb",
-    notify => Class['mcollective::server::service'],
+    notify => Service['mcollective'],
   }
 
   if $ddl {

@@ -189,8 +189,8 @@ class mcollective(
     # Also manage the plugins
     if $manage_plugins {
       class { 'mcollective::plugins':
-        require => Class['mcollective::server::base'],
         before  => Anchor['mcollective::end'],
+        manage_packages => $manage_packages,
       }
     }
   }

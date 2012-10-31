@@ -18,7 +18,8 @@
 #
 class mcollective::plugins(
   $plugin_base = $mcollective::params::plugin_base,
-  $plugin_subs = $mcollective::params::plugin_subs
+  $plugin_subs = $mcollective::params::plugin_subs,
+  $manage_packages
 ) inherits mcollective::params {
 
   File {
@@ -30,11 +31,13 @@ class mcollective::plugins(
   # $plugin_base and $plugin_subs are meant to be arrays.
   file { $plugin_base:
     ensure  => directory,
-    require => Class['mcollective::server::package'],
+		require => $manage_packages ? {
+		  true  => Package['mcollective'],
+		  false => undef,
+		},
   }
   file { $plugin_subs:
     ensure => directory,
-    notify => Class['mcollective::server::service'],
   }
 
   mcollective::plugins::plugin { 'registration':
