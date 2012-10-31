@@ -196,7 +196,7 @@ class mcollective(
   }
 
   if $client_real {
-    class { 'mcollective::client::base':
+    class { 'mcollective::client':
       version         => $version_real,
       config          => $client_config_real,
       config_file     => $client_config_file_real,
