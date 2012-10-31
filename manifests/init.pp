@@ -177,7 +177,7 @@ class mcollective(
   anchor { 'mcollective::end': }
 
   if $server_real {
-    class { 'mcollective::server::base':
+    class { 'mcollective::server':
       version         => $version_real,
       enterprise      => $enterprise,
       manage_packages => $manage_packages,
