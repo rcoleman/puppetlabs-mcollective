@@ -86,30 +86,30 @@
 # }
 #
 class mcollective(
-  $version              = 'UNSET',
-  $enterprise           = false,
-  $manage_packages      = true,
-  $manage_plugins       = false,
-  $server               = true,
-  $server_config        = 'UNSET',
-  $server_config_file   = '/etc/mcollective/server.cfg',
-  $client               = false,
-  $client_config        = 'UNSET',
-  $client_config_file   = '/etc/mcollective/client.cfg',
-  $main_collective      = 'mcollective',
-  $collectives          = 'mcollective',
-  $connector            = 'stomp',
-  $classesfile          = '/var/lib/puppet/state/classes.txt',
-  $stomp_pool           = 'UNSET',
+  $version              = $mcollective::params::version,
+  $enterprise           = $mcollective::params::enterprise,
+  $manage_packages      = $mcollective::params::manage_packages,
+  $manage_plugins       = $mcollective::params::manage_plugins,
+  $server               = $mcollective::params::server,
+  $server_config        = $mcollective::params::server_config,
+  $server_config_file   = $mcollective::params::server_config_file,
+  $client               = $mcollective::params::client,
+  $client_config        = $mcollective::params::client_config,
+  $client_config_file   = $mcollective::params::client_config_file,
+  $main_collective      = $mcollective::params::main_collective,
+  $collectives          = $mcollective::params::collectives,
+  $connector            = $mcollective::params::connector,
+  $classesfile          = $mcollective::params::classesfile,
+  $stomp_pool           = $mcollective::params::stomp_pool,
   $stomp_server         = $mcollective::params::stomp_server,
   $stomp_port           = $mcollective::params::stomp_port,
   $stomp_user           = $mcollective::params::stomp_user,
   $stomp_passwd         = $mcollective::params::stomp_passwd,
   $mc_security_provider = $mcollective::params::mc_security_provider,
   $mc_security_psk      = $mcollective::params::mc_security_psk,
-  $fact_source          = 'facter',
-  $yaml_facter_source   = '/etc/mcollective/facts.yaml',
-  $plugin_params        = {}
+  $fact_source          = $mcollective::params::fact_source,
+  $yaml_facter_source   = $mcollective::params::yaml_facter_source,
+  $plugin_params        = $mcollective::params::plugin_params
 ) inherits mcollective::params
 {
   $v_bool = [ '^true$', '^false$' ]

@@ -12,7 +12,21 @@
 # Sample Usage:
 #
 class mcollective::params {
-
+  $version              = 'UNSET'
+  $enterprise           = false
+  $manage_packages      = true
+  $manage_plugins       = false
+  $server               = true
+  $server_config        = 'UNSET'
+  $server_config_file   = '/etc/mcollective/server.cfg'
+  $client               = false
+  $client_config        = 'UNSET'
+  $client_config_file   = '/etc/mcollective/client.cfg'
+  $main_collective      = 'mcollective'
+  $collectives          = 'mcollective'
+  $connector            = 'stomp'
+  $classesfile          = '/var/lib/puppet/state/classes.txt'
+  $stomp_pool           = 'UNSET'
   $mc_topicprefix       = '/topic/'
   $mc_main_collective   = 'mcollective'
   $mc_collectives       = ''
@@ -21,6 +35,9 @@ class mcollective::params {
   $mc_daemonize         = '1'
   $mc_security_provider = 'psk'
   $mc_security_psk      = 'changemeplease'
+  $fact_source          = 'facter'
+  $yaml_facter_source   = '/etc/mcollective/facts.yaml'
+  $plugin_params        = {}
 
   case $osfamily {
     'redhat': {
