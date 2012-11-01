@@ -6,8 +6,8 @@ libdir          = <%= scope.lookupvar("mcollective::params::mc_libdir") %>
 loglevel        = <%= scope.lookupvar("mcollective::params::mc_loglevel") %>
 
 # Plugins
-securityprovider = <%= scope.lookupvar("mcollective::params::mc_security_provider_real") %>
-plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk_real") %>
+securityprovider = <%= scope.lookupvar("mcollective::params::mc_security_provider") %>
+plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk") %>
 
 # Middleware
 connector              = <%= scope.lookupvar("mcollective::params::connector") %>

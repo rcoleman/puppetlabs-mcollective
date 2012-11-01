@@ -9,8 +9,8 @@ daemonize       = <%= scope.lookupvar("mcollective::params::mc_daemonize") %>
 classesfile     = <%= scope.lookupvar("mcollective::params::classesfile") %>
 
 # Plugins
-securityprovider = <%= scope.lookupvar("mcollective::params::mc_security_provider_real") %>
-plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk_real") %>
+securityprovider = <%= scope.lookupvar("mcollective::params::mc_security_provider") %>
+plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk") %>
 
 # Registration
 registerinterval = 300
