@@ -1,9 +1,9 @@
 # Basic stuff
-topicprefix     = <%= mc_topicprefix %>
-main_collective = <%= main_collective %>
-collectives     = <%= collectives %>
-libdir          = <%= mc_libdir %>
-loglevel        = <%= mc_loglevel %>
+topicprefix     = <%= scope.lookupvar("mcollective::params::mc_topicprefix") %>
+main_collective = <%= scope.lookupvar("mcollective::params::main_collective") %>
+collectives     = <%= scope.lookupvar("mcollective::params::collectives") %>
+libdir          = <%= scope.lookupvar("mcollective::params::mc_libdir") %>
+loglevel        = <%= scope.lookupvar("mcollective::params::mc_loglevel") %>
 
 # Plugins
 securityprovider = <%= mc_security_provider_real %>
