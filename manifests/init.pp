@@ -67,8 +67,8 @@ class mcollective(
       version         => $version_real,
       manage_packages => $mcollective::params::manage_packages,
       service_name    => $mcollective::params::service_name,
-      config          => $mcollective::params::server_config_real,
-      config_file     => $mcollective::params::server_config_file_real,
+      config          => $mcollective::params::server_config,
+      config_file     => $mcollective::params::server_config_file,
       require         => Anchor['mcollective::begin'],
     }
     class { 'mcollective::plugins':
