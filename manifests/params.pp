@@ -23,7 +23,7 @@ class mcollective::params (
 	$version              = 'UNSET',
 	$main_collective      = 'mcollective',
 	$manage_packages      = true,
-	$manage_plugins       = false,
+	$manage_plugins       = true,
 	$mc_topicprefix       = '/topic/',
 	$mc_main_collective   = 'mcollective',
 	$mc_collectives       = '',
