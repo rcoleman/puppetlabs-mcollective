@@ -76,12 +76,10 @@ class mcollective(
       config_file     => $mcollective::params::server_config_file_real,
       require         => Anchor['mcollective::begin'],
     }
-    # Also manage the plugins
-    if $manage_plugins {
-      class { 'mcollective::plugins':
-        before  => Anchor['mcollective::end'],
-        manage_packages => $mcollective::params::manage_packages,
-      }
+    class { 'mcollective::plugins':
+      before          => Anchor['mcollective::end'],
+      manage_plugins  => $manage_plugins,
+      manage_packages => $mcollective::params::manage_packages,
     }
   }
 
