@@ -29,7 +29,7 @@ class mcollective::server(
   $service_name,
   $server_config_owner = $mcollective::params::server_config_owner,
   $server_config_group = $mcollective::params::server_config_group,
-  $config_file,
+  $config_file         = $mcollective::params::client_config_file,
   $mc_service_name     = $mcollective::params::mc_service_name,
   $mc_service_stop     = 'UNSET',
   $mc_service_start    = 'UNSET'
