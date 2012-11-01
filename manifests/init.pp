@@ -50,8 +50,8 @@ class mcollective(
 {
   validate_bool($enterprise)
   validate_bool($manage_plugins)
-  validate_bool("$server", $v_bool)
-  validate_bool("$client", $v_bool)
+  validate_bool($server)
+  validate_bool($client)
   validate_re($version, '^[._0-9a-zA-Z:-]+$')
 
   $server_real = $server
