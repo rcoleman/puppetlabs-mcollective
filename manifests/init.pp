@@ -54,8 +54,8 @@ class mcollective(
   validate_bool("$client", $v_bool)
   validate_re($version, '^[._0-9a-zA-Z:-]+$')
 
-  $server_real               = $server
-  $client_real               = $client
+  $server_real = $server
+  $client_real = $client
 
   if $version == 'UNSET' {
       $version_real = 'present'
