@@ -41,45 +41,46 @@ class mcollective::plugins(
     ensure => directory,
   }
 
-  mcollective::plugins::plugin { 'registration':
-    ensure      => present,
-    type        => 'agent',
-    ddl         => false,
-    application => false,
+  if $manage_plugins {
+    mcollective::plugins::plugin { 'registration':
+      ensure      => present,
+      type        => 'agent',
+      ddl         => false,
+      application => false,
+    }
+    mcollective::plugins::plugin { 'facter_facts':
+      ensure => present,
+      type   => 'facts',
+    }
+    mcollective::plugins::plugin { 'yaml_facts':
+      ensure => present,
+      type   => 'facts',
+    }
+    mcollective::plugins::plugin { 'service':
+      ensure      => present,
+      type        => 'agent',
+      ddl         => true,
+      application => false,
+    }
+    mcollective::plugins::plugin { 'package':
+      ensure      => present,
+      type        => 'agent',
+      ddl         => true,
+      application => false,
+    }
+    mcollective::plugins::plugin { 'meta':
+      ensure      => present,
+      type        => 'registration',
+      ddl         => false,
+      application => false,
+    }
+    # Add the NRPE Agent by default
+    mcollective::plugins::plugin { 'nrpe':
+      ensure      => present,
+      type        => 'agent',
+      ddl         => true,
+      application => true,
+    }
   }
-  mcollective::plugins::plugin { 'facter_facts':
-    ensure => present,
-    type   => 'facts',
-  }
-  mcollective::plugins::plugin { 'yaml_facts':
-    ensure => present,
-    type   => 'facts',
-  }
-  mcollective::plugins::plugin { 'service':
-    ensure      => present,
-    type        => 'agent',
-    ddl         => true,
-    application => false,
-  }
-  mcollective::plugins::plugin { 'package':
-    ensure      => present,
-    type        => 'agent',
-    ddl         => true,
-    application => false,
-  }
-  mcollective::plugins::plugin { 'meta':
-    ensure      => present,
-    type        => 'registration',
-    ddl         => false,
-    application => false,
-  }
-  # Add the NRPE Agent by default
-  mcollective::plugins::plugin { 'nrpe':
-    ensure      => present,
-    type        => 'agent',
-    ddl         => true,
-    application => true,
-  }
-
 }
 
