@@ -13,7 +13,6 @@
 #
 class mcollective::params (
 	$version              = 'UNSET',
-	$enterprise           = false,
 	$manage_packages      = true,
 	$manage_plugins       = false,
 	$server               = true,

@@ -25,7 +25,6 @@
 class mcollective::server(
   $version,
   $config,
-  $enterprise,
   $manage_packages,
   $service_name,
   $server_config_owner = $mcollective::params::server_config_owner,

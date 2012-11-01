@@ -13,8 +13,6 @@
 #                        configuration file.
 #  [*client*]        - Boolean determining whether you would like to
 #                        install the client component.
-#  [*enterprise*]    - Boolean determining whether Puppet Enterprise
-#                        configuration defaults should be used.
 #
 # Actions:
 #
@@ -33,7 +31,6 @@
 # node default {
 #   class { 'mcollective':
 #     version        => 'present',
-#     enterprise     => false,
 #     server         => true,
 #     client         => false,
 #     manage_plugins => true,
@@ -42,13 +39,11 @@
 #
 class mcollective(
   $version        = $mcollective::params::version,
-  $enterprise     = $mcollective::params::enterprise,
   $server         = $mcollective::params::server,
   $client         = $mcollective::params::client,
   $manage_plugins = $mcollective::params::manage_plugins
 ) inherits mcollective::params
 {
-  validate_bool($enterprise)
   validate_bool($manage_plugins)
   validate_bool($server)
   validate_bool($client)
