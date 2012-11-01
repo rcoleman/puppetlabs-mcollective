@@ -149,9 +149,15 @@ class mcollective(
 
   # if no pool hash is provided, create a single pool using defaults
   if $stomp_pool == 'UNSET' {
-    $stomp_pool_real = {
-      pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user,
-                 passwd1 => $stomp_passwd  }
+    $stomp_pool_real =
+    {
+      pool1 =>
+      {
+          host1   => $stomp_server,
+          port1   => $stomp_port,
+          user1   => $stomp_user,
+          passwd1 => $stomp_passwd
+      }
     }
   }
   else {
