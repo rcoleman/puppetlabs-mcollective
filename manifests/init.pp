@@ -5,14 +5,16 @@
 #
 # Parameters:
 #
-#  [*version*]            - The version of the MCollective package(s) to
-#                             be installed.
-#  [*server*]             - Boolean determining whether you would like to
-#                             install the server component.
-#  [*manage_plugins]      - Boolean controlling installation of plugins in module
-#                             configuration file.
-#  [*client*]             - Boolean determining whether you would like to
-#                             install the client component.
+#  [*version*]       - The version of the MCollective package(s) to
+#                        be installed.
+#  [*server*]        - Boolean determining whether you would like to
+#                        install the server component.
+#  [*manage_plugins] - Boolean controlling installation of plugins in module
+#                        configuration file.
+#  [*client*]        - Boolean determining whether you would like to
+#                        install the client component.
+#  [*enterprise*]    - Boolean determining whether Puppet Enterprise
+#                        configuration defaults should be used.
 #
 # Actions:
 #
