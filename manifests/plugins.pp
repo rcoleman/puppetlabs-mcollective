@@ -17,11 +17,9 @@
 #   This class is intended to be declared in the mcollective class.
 #
 class mcollective::plugins(
-  $plugin_base = $mcollective::params::plugin_base,
-  $plugin_subs = $mcollective::params::plugin_subs,
   $manage_plugins,
   $manage_packages
-) inherits mcollective::params {
+) {
 
   File {
     owner => '0',
@@ -30,14 +28,14 @@ class mcollective::plugins(
   }
 
   # $plugin_base and $plugin_subs are meant to be arrays.
-  file { $plugin_base:
+  file { $mcollective::params::plugin_base:
     ensure  => directory,
 		require => $manage_packages ? {
 		  true  => Package['mcollective'],
 		  false => undef,
 		},
   }
-  file { $plugin_subs:
+  file { $mcollective::params::plugin_subs:
     ensure => directory,
   }
 

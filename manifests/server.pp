@@ -27,13 +27,9 @@ class mcollective::server(
   $config,
   $manage_packages,
   $service_name,
-  $server_config_owner = $mcollective::params::server_config_owner,
-  $server_config_group = $mcollective::params::server_config_group,
-  $config_file         = $mcollective::params::client_config_file,
-  $mc_service_name     = $mcollective::params::mc_service_name,
   $mc_service_stop     = 'UNSET',
   $mc_service_start    = 'UNSET'
-) inherits mcollective::params {
+) {
 
   ##################################
   # Manage the MCollective Package #
@@ -64,11 +60,11 @@ class mcollective::server(
   ###################################################
   # NOTE: Need a check to see if we WANT to manage the service
   file { 'server_config':
-    path    => $config_file,
+    path    => $mcollective::params::server_config_file,
     content => $config,
     mode    => '0640',
-    owner   => $server_config_owner,
-    group   => $server_config_group,
+    owner   => $mcollective::params::server_config_owner,
+    group   => $mcollective::params::server_config_group,
     notify  => Service['mcollective'],
   }
 
@@ -88,7 +84,7 @@ class mcollective::server(
 
   service { 'mcollective':
     ensure    => running,
-    name      => $mc_service_name,
+    name      => $mcollective::params::mc_service_name,
     hasstatus => true,
     start     => $mc_service_start_real,
     stop      => $mc_service_stop_real,

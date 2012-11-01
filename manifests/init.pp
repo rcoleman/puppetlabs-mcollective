@@ -38,12 +38,14 @@
 # }
 #
 class mcollective(
-  $version        = $mcollective::params::version,
-  $server         = $mcollective::params::server,
-  $client         = $mcollective::params::client,
-  $manage_plugins = $mcollective::params::manage_plugins
-) inherits mcollective::params
-{
+  $version        = present,
+  $server         = true,
+  $client         = true,
+  $manage_plugins = true,
+) {
+  
+  include mcollective::params
+  
   validate_bool($manage_plugins)
   validate_bool($server)
   validate_bool($client)
@@ -68,7 +70,6 @@ class mcollective(
       manage_packages => $mcollective::params::manage_packages,
       service_name    => $mcollective::params::service_name,
       config          => $mcollective::params::server_config,
-      config_file     => $mcollective::params::server_config_file,
       require         => Anchor['mcollective::begin'],
     }
     class { 'mcollective::plugins':
@@ -81,8 +82,8 @@ class mcollective(
   if $client_real {
     class { 'mcollective::client':
       version         => $version_real,
-      config          => $mcollective::params::client_config_real,
-      config_file     => $mcollective::params::client_config_file_real,
+      config          => $mcollective::params::client_config,
+      config_file     => $mcollective::params::client_config_file,
       manage_packages => $mcollective::params::manage_packages,
       require         => Anchor['mcollective::begin'],
       before          => Anchor['mcollective::end'],

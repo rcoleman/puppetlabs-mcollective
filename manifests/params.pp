@@ -36,13 +36,13 @@ class mcollective::params (
 	$plugin_params        = {},
 	$server               = true,
 	$server_config_file   = '/etc/mcollective/server.cfg',
-	$stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
 	$stomp_user           = 'mcollective',
   $stomp_passwd         = 'marionette',
   $stomp_server         = 'stomp',
   $stomp_port           = '6163',
   $server_config_owner  = '0',
   $server_config_group  = '0',
+  $stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
 	$yaml_facter_source   = '/etc/mcollective/facts.yaml'
 ) {
   validate_re($server_config_file, '^/')
