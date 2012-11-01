@@ -22,28 +22,25 @@ class mcollective::params {
   $mc_security_provider = 'psk'
   $mc_security_psk      = 'changemeplease'
 
-  $nrpe_dir_real = $osfamily ? {
-    redhat  => '/etc/nrpe.d',
-    default => '/etc/nagios/nrpe.d',
-  }
-  $mc_service_name = $osfamily ? {
-    /(?i-mx:darwin)/ => 'com.puppetlabs.mcollective',
-    default          => 'mcollective',
-  }
-
-  $mc_libdir = $osfamily ? {
-    debian  => '/usr/share/mcollective/plugins',
-    redhat  => '/usr/libexec/mcollective',
-  }
-
-  $mc_service_start = $osfamily ? {
-    debian  => '/etc/init.d/mcollective start',
-    redhat  => '/sbin/service mcollective start',
-  }
-
-  $mc_service_stop = $osfamily ? {
-    debian  => '/etc/init.d/mcollective stop',
-    redhat  => '/sbin/service mcollective stop',
+  case $osfamily {
+    'redhat': {
+      $nrpe_dir_real = '/etc/nrpe.d'
+      $mc_service_start = '/sbin/service mcollective start',
+      $mc_service_stop  = '/sbin/service mcollective stop',
+    }
+    'debian': {
+      $mc_libdir = '/usr/share/mcollective/plugins'
+      $mc_service_start = '/etc/init.d/mcollective start', 
+      $mc_service_stop  = '/etc/init.d/mcollective stop',
+    }
+    'darwin': {
+      $mc_service_name = 'com.puppetlabs.mcollective'
+    }
+    default: {
+      $mc_service_name = 'mcollective'
+      $nrpe_dir_real   = '/etc/nagios/nrpe.d'
+      $mc_libdir       = '/usr/libexec/mcollective'
+    }
   }
 
   $plugin_base = "${mc_libdir}/mcollective"
