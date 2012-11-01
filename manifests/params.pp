@@ -16,16 +16,16 @@ class mcollective::params (
 	$manage_packages      = true,
 	$manage_plugins       = false,
 	$server               = true,
-	$server_config        = 'UNSET',
+	$server_config        = template('mcollective/server.cfg.erb'),
 	$server_config_file   = '/etc/mcollective/server.cfg',
 	$client               = false,
-	$client_config        = 'UNSET',
+	$client_config        = template('mcollective/client.cfg.erb'),
 	$client_config_file   = '/etc/mcollective/client.cfg',
 	$main_collective      = 'mcollective',
 	$collectives          = 'mcollective',
 	$connector            = 'stomp',
 	$classesfile          = '/var/lib/puppet/state/classes.txt',
-	$stomp_pool           = 'UNSET',
+	$stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
 	$mc_topicprefix       = '/topic/',
 	$mc_main_collective   = 'mcollective',
 	$mc_collectives       = '',
@@ -49,6 +49,14 @@ class mcollective::params (
 ) {
 
 
+  validate_re($server_config_file, '^/')
+  validate_re($client_config_file, '^/')
+  validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
+  validate_re($mc_security_psk, '^[^ \t]+$')
+  validate_re($fact_source, '^facter$|^yaml$')
+  validate_re($connector, '^stomp$|^activemq$')
+  validate_hash($plugin_params)
+
   case $osfamily {
     'redhat': {
       $nrpe_dir_real    = '/etc/nrpe.d'
@@ -58,7 +66,7 @@ class mcollective::params (
     }
     'debian': {
       $mc_libdir        = '/usr/share/mcollective/plugins'
-      $mc_service_start = '/etc/init.d/mcollective start' 
+      $mc_service_start = '/etc/init.d/mcollective start'
       $mc_service_stop  = '/etc/init.d/mcollective stop'
     }
     'darwin': {
