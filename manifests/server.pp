@@ -58,6 +58,7 @@ class mcollective::server(
     } 
   }
 
+
   ###################################################
   # Manage the MCollective server.cfg Configuration #
   ###################################################

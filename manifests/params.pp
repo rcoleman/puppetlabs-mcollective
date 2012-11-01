@@ -12,20 +12,18 @@
 # Sample Usage:
 #
 class mcollective::params (
-	$version              = 'UNSET',
-	$manage_packages      = true,
-	$manage_plugins       = false,
-	$server               = true,
-	$server_config        = template('mcollective/server.cfg.erb'),
-	$server_config_file   = '/etc/mcollective/server.cfg',
+	$classesfile          = '/var/lib/puppet/state/classes.txt',
 	$client               = false,
-	$client_config        = template('mcollective/client.cfg.erb'),
 	$client_config_file   = '/etc/mcollective/client.cfg',
-	$main_collective      = 'mcollective',
+  $client_config_group  = '0',
+  $client_config_owner  = '0',
 	$collectives          = 'mcollective',
 	$connector            = 'stomp',
-	$classesfile          = '/var/lib/puppet/state/classes.txt',
-	$stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
+	$fact_source          = 'facter',
+	$version              = 'UNSET',
+	$main_collective      = 'mcollective',
+	$manage_packages      = true,
+	$manage_plugins       = false,
 	$mc_topicprefix       = '/topic/',
 	$mc_main_collective   = 'mcollective',
 	$mc_collectives       = '',
@@ -34,21 +32,19 @@ class mcollective::params (
 	$mc_daemonize         = '1',
 	$mc_security_provider = 'psk',
 	$mc_security_psk      = 'changemeplease',
-	$fact_source          = 'facter',
-	$yaml_facter_source   = '/etc/mcollective/facts.yaml',
+  $pkg_state            = 'present',
 	$plugin_params        = {},
-	$stomp_user    = 'mcollective',
-  $stomp_passwd  = 'marionette',
-  $stomp_server  = 'stomp',
-  $stomp_port    = '6163',
-  $client_config_owner  = '0',
-  $client_config_group  = '0',
+	$server               = true,
+	$server_config_file   = '/etc/mcollective/server.cfg',
+	$stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
+	$stomp_user           = 'mcollective',
+  $stomp_passwd         = 'marionette',
+  $stomp_server         = 'stomp',
+  $stomp_port           = '6163',
   $server_config_owner  = '0',
   $server_config_group  = '0',
-  $pkg_state = 'present'
+	$yaml_facter_source   = '/etc/mcollective/facts.yaml'
 ) {
-
-
   validate_re($server_config_file, '^/')
   validate_re($client_config_file, '^/')
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
@@ -79,18 +75,18 @@ class mcollective::params (
     }
   }
 
-  $plugin_base = "${mc_libdir}/mcollective"
-
-  $plugin_subs = [
-    "${plugin_base}/agent",
-    "${plugin_base}/application",
-    "${plugin_base}/audit",
-    "${plugin_base}/connector",
-    "${plugin_base}/facts",
-    "${plugin_base}/registration",
-    "${plugin_base}/security",
-    "${plugin_base}/util",
-  ]
-
-
+  $stomp_pool_size      = size(keys($stomp_pool))
+	$server_config        = template('mcollective/server.cfg.erb')
+	$client_config        = template('mcollective/client.cfg.erb')
+  $plugin_base          = "${mc_libdir}/mcollective"
+  $plugin_subs          = [
+                            "${plugin_base}/agent",
+                            "${plugin_base}/application",
+                            "${plugin_base}/audit",
+                            "${plugin_base}/connector",
+                            "${plugin_base}/facts",
+                            "${plugin_base}/registration",
+                            "${plugin_base}/security",
+                            "${plugin_base}/util",
+                          ]
 }

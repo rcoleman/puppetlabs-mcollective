@@ -6,13 +6,13 @@ libdir          = <%= scope.lookupvar("mcollective::params::mc_libdir") %>
 loglevel        = <%= scope.lookupvar("mcollective::params::mc_loglevel") %>
 
 # Plugins
-securityprovider = <%= mc_security_provider_real %>
-plugin.psk       = <%= mc_security_psk_real %>
+securityprovider = <%= scope.lookupvar("mcollective::params::mc_security_provider_real") %>
+plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk_real") %>
 
 # Middleware
-connector              = <%= connector %>
-plugin.stomp.pool.size = <%= stomp_pool_size %>
-<% stomp_pool_real.each do |pool,configs| -%>
+connector              = <%= scope.lookupvar("mcollective::params::connector") %>
+plugin.stomp.pool.size = <%= scope.lookupvar("mcollective::params::stomp_pool_size") %>
+<% stomp_pool.each do |pool,configs| -%>
 <% configs.each do |key,value| -%>
 plugin.stomp.pool.<%= key -%> = <%= value %>
 <% end -%>
