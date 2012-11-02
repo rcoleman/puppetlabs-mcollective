@@ -26,7 +26,7 @@ class mcollective::server(
   $version,
   $config,
   $manage_packages,
-  $service_name,
+  $service_name        = $mcollective::params::service_name,
   $mc_service_stop     = 'UNSET',
   $mc_service_start    = 'UNSET'
 ) {
