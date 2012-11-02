@@ -69,17 +69,6 @@ class mcollective::security(
                    ],
       }
   
-      exec { 'mcollective client certificate':
-        command => "puppet cert --generate puppet-internal-${mc_username}-mcollective-client",
-        creates => "${puppet_ssldir}/certs/puppet-internal-${mc_username}-mcollective-client",
-        before  => [
-                     File["${mc_username}-public.pem"],
-                     File["${mc_user_homedir}/.mcollective.d/${mc_username}-private.pem"],
-                     File["${mc_user_homedir}/.mcollective.d/${mc_username}-public.pem"],
-                     File["${mc_user_homedir}/.mcollective.d/${mc_username}-cert.pem"]
-                   ],
-      }
-  
       exec { 'puppet dashboard client certificate':
         command => 'puppet cert --generate puppet-internal-puppet-console-mcollective-client',
         creates => "${puppet_ssldir}/certs/puppet-internal-puppet-console-mcollective-client.pem",
@@ -224,20 +213,6 @@ class mcollective::security(
 
   file { "${mc_confdir}/ssl/clients":
     ensure => directory
-  }
-
-  file { "${mc_username}-public.pem":
-    ensure  => file,
-    path    => "${mc_confdir}/ssl/clients/${mc_username}-public.pem",
-    source  => $machine_is_a_ca ? {
-      true    => "${puppet_ssldir},public_keys/puppet-internal-${mc_username}-mcollective-client.pem",
-      false   => undef,
-    },
-    content => $machine_is_a_ca ? {
-      true    => undef,
-      false   => file("${mc_confdir}/ssl/clients/${mc_username}-public.pem"),
-    },
-    notify => Service['mcollective'],
   }
 
   file { 'puppet-dashboard-public.pem':
