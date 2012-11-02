@@ -83,7 +83,7 @@ class mcollective(
     class { 'mcollective::client':
       version         => $version_real,
       config          => $mcollective::params::client_config,
-      config_file     => $mcollective::params::client_config_file,
+      config_file     => $mcollective::params::client_config_file_real,
       manage_packages => $mcollective::params::manage_packages,
       require         => Anchor['mcollective::begin'],
       before          => Anchor['mcollective::end'],

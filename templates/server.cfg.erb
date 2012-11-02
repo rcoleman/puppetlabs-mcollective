@@ -35,5 +35,5 @@ plugin.nrpe.conf_dir  = <%= scope.lookupvar("mcollective::params::nrpe_dir_real"
 # Facts
 factsource = <%= scope.lookupvar("mcollective::params::fact_source") %>
 <% if fact_source == 'yaml' -%>
-plugin.yaml = <%= scope.lookupvar("mcollective::params::yaml_facter_source") %>
+plugin.yaml = <%= scope.lookupvar("mcollective::params::yaml_facter_source_real") %>
 <% end -%>

@@ -14,7 +14,7 @@
 class mcollective::params (
 	$classesfile          = '/var/lib/puppet/state/classes.txt',
 	$client               = false,
-	$client_config_file   = '/etc/mcollective/client.cfg',
+	$client_config_file   = 'UNSET',
   $client_config_group  = '0',
   $client_config_owner  = '0',
 	$collectives          = 'mcollective',
@@ -25,6 +25,7 @@ class mcollective::params (
 	$manage_packages      = true,
 	$manage_plugins       = true,
 	$mc_topicprefix       = '/topic/',
+  $mc_confdir           = '/etc/mcollective',
 	$mc_main_collective   = 'mcollective',
 	$mc_collectives       = '',
 	$mc_logfile           = '/var/log/mcollective.log',
@@ -35,7 +36,7 @@ class mcollective::params (
   $pkg_state            = 'present',
 	$plugin_params        = {},
 	$server               = true,
-	$server_config_file   = '/etc/mcollective/server.cfg',
+	$server_config_file   = 'UNSET',
 	$stomp_user           = 'mcollective',
   $stomp_passwd         = 'marionette',
   $stomp_server         = 'stomp',
@@ -43,15 +44,36 @@ class mcollective::params (
   $server_config_owner  = '0',
   $server_config_group  = '0',
   $stomp_pool           = 'UNSET',
-	$yaml_facter_source   = '/etc/mcollective/facts.yaml'
+	$yaml_facter_source   = 'UNSET'
 ) {
-  validate_re($server_config_file, '^/')
-  validate_re($client_config_file, '^/')
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
   validate_re($mc_security_psk, '^[^ \t]+$')
   validate_re($fact_source, '^facter$|^yaml$')
   validate_re($connector, '^stomp$|^activemq$')
   validate_hash($plugin_params)
+  validate_re($mc_confdir, '^/')
+
+  if $client_config_file == 'UNSET' {
+    $client_config_file_real = "${mc_confdir}/client.cfg"
+  } else {
+    $client_config_file_real = $client_config_file
+  }
+
+  if $server_config_file == 'UNSET' {
+    $server_config_file_real = "${mc_confdir}/server.cfg"
+  } else {
+    $server_config_file_real = $server_config_file
+  }
+
+  if $yaml_facter_source == 'UNSET' {
+    $yaml_facter_source_real = "${mc_confdir}/facts.yaml"
+  } else {
+    $yaml_facter_source_real = $yaml_facter_source
+  }
+
+  validate_re($server_config_file_real, '^/')
+  validate_re($client_config_file_real, '^/')
+  validate_re($yaml_facter_source_real, '^/')
 
   if $stomp_pool == 'UNSET' {
     $stomp_pool_real =

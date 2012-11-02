@@ -60,7 +60,7 @@ class mcollective::server(
   ###################################################
   # NOTE: Need a check to see if we WANT to manage the service
   file { 'server_config':
-    path    => $mcollective::params::server_config_file,
+    path    => $mcollective::params::server_config_file_real,
     content => $config,
     mode    => '0640',
     owner   => $mcollective::params::server_config_owner,
