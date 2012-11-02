@@ -8,6 +8,9 @@ define mcollective::user(
   $machine_is_a_ca     = $mcollective::params::machine_is_a_ca,
   $machine_is_a_master = $mcollective::params::machine_is_a_master,
   $manage_home         = false,
+  # We need to figure out a solution to stomp_pool_real
+  # This is needed to access the variable in our template
+  $stomp_pool_real     = $mcollective::params::stomp_pool_real
 ) {
 
   File {
@@ -74,7 +77,7 @@ define mcollective::user(
       mode    => '0600',
     }
 
-    file { "${home_directory}/.mcollective.d/${name}-private":
+    file { "${home_directory}/.mcollective.d/${name}-private.pem":
       ensure  => file,
       source  => $machine_is_a_ca ? {
         true    => "${puppet_ssldir}/private_keys/puppet-internal-${name}-mcollective-client.pem",
@@ -87,7 +90,7 @@ define mcollective::user(
       mode    => '0600',
     }
 
-    file { "${home_directory}/.mcollective.d/${name}-cert":
+    file { "${home_directory}/.mcollective.d/${name}-cert.pem":
       ensure  => file,
       source  => $machine_is_a_ca ? {
         true    => "${puppet_ssldir}/certs/puppet-internal-${name}-mcollective-client.pem",
