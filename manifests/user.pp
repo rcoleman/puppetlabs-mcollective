@@ -3,11 +3,11 @@
 #
 define mcollective::user(
   $home_directory,
-  $mc_confdir,
-  $puppet_ssldir,
-  $machine_is_a_ca,
-  $machine_is_a_master,
-  $manage_home
+  $mc_confdir          = $mcollective::params::mc_confdir,
+  $puppet_ssldir       = $mcollective::params::puppet_ssldir,
+  $machine_is_a_ca     = $mcollective::params::machine_is_a_ca,
+  $machine_is_a_master = $mcollective::params::machine_is_a_master,
+  $manage_home         = false,
 ) {
 
   File {

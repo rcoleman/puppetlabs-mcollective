@@ -58,6 +58,7 @@ class mcollective::params (
   $activemq_group       = 'activemq',
   $activemq_confdir     = '/etc/activemq',
   $mc_enable_stomp_ssl  = true,
+  $global_client_config = false
 ) {
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
   validate_re($mc_security_psk, '^[^ \t]+$')

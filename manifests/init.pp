@@ -89,12 +89,13 @@ class mcollective(
 
   if $client_real {
     class { 'mcollective::client':
-      version         => $version_real,
-      config          => $mcollective::params::client_config,
-      config_file     => $mcollective::params::client_config_file_real,
-      manage_packages => $mcollective::params::manage_packages,
-      require         => Anchor['mcollective::begin'],
-      before          => Anchor['mcollective::end'],
+      version              => $version_real,
+      config               => $mcollective::params::client_config,
+      config_file          => $mcollective::params::client_config_file_real,
+      manage_packages      => $mcollective::params::manage_packages,
+      global_client_config => $mcollective::params::global_client_config,
+      require              => Anchor['mcollective::begin'],
+      before               => Anchor['mcollective::end'],
     }
   }
 }

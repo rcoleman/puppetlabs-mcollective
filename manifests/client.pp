@@ -29,7 +29,10 @@ class mcollective::client(
   if $manage_packages {
 	 	package { 'mcollective-client':
 	    ensure => $version,
-			before => File['client_config'],
+			before => $global_client_config ? {
+			  true =>  File['client_config'],
+			  false => undef,
+			},
 	  }
   }
 
