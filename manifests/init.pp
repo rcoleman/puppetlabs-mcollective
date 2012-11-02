@@ -60,8 +60,16 @@ class mcollective(
       $version_real = $version
   }
 
+  file { 'mcollective-directory':
+    ensure => directory,
+    path   => $mcollective::params::mc_confdir,
+    mode   => '0755',
+  }
+
   # Add anchor resources for containment
-  anchor { 'mcollective::begin': }
+  anchor { 'mcollective::begin':
+    require => File['mcollective-directory'],
+  }
   anchor { 'mcollective::end': }
 
   if $server_real {
