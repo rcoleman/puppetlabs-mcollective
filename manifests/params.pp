@@ -42,7 +42,7 @@ class mcollective::params (
   $stomp_port           = '6163',
   $server_config_owner  = '0',
   $server_config_group  = '0',
-  $stomp_pool           = { pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user, passwd1 => $stomp_passwd  } },
+  $stomp_pool           = 'UNSET',
 	$yaml_facter_source   = '/etc/mcollective/facts.yaml'
 ) {
   validate_re($server_config_file, '^/')
@@ -52,6 +52,21 @@ class mcollective::params (
   validate_re($fact_source, '^facter$|^yaml$')
   validate_re($connector, '^stomp$|^activemq$')
   validate_hash($plugin_params)
+
+  if $stomp_pool == 'UNSET' {
+    $stomp_pool_real =
+    {
+      pool1 =>
+      {
+        'host1'     => $stomp_server,
+        'port1'     => $stomp_port,
+        'user1'     => $stomp_user,
+        'password1' => $stomp_passwd
+      }
+    }
+  } else {
+    $stomp_pool_real = $stomp_pool
+  }
 
   case $osfamily {
     'redhat': {
@@ -75,7 +90,7 @@ class mcollective::params (
     }
   }
 
-  $stomp_pool_size      = size(keys($stomp_pool))
+  $stomp_pool_size      = size(keys($stomp_pool_real))
 	$server_config        = template('mcollective/server.cfg.erb')
 	$client_config        = template('mcollective/client.cfg.erb')
   $plugin_base          = "${mc_libdir}/mcollective"

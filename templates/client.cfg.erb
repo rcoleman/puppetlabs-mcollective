@@ -12,7 +12,7 @@ plugin.psk       = <%= scope.lookupvar("mcollective::params::mc_security_psk") %
 # Middleware
 connector              = <%= scope.lookupvar("mcollective::params::connector") %>
 plugin.stomp.pool.size = <%= scope.lookupvar("mcollective::params::stomp_pool_size") %>
-<% stomp_pool.each do |pool,configs| -%>
+<% stomp_pool_real.each do |pool,configs| -%>
 <% configs.sort.each do |key,value| -%>
 plugin.stomp.pool.<%= key -%> = <%= value %>
 <% end -%>
