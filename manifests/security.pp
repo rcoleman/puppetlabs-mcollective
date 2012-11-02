@@ -24,21 +24,21 @@
 #
 #
 class mcollective::security(
-  $machine_is_a_ca,
-  $machine_is_a_console,
-  $machine_is_a_master,
-  $mc_confdir,
-  $mc_username,
-  $mc_user_homedir,
-  $puppet_ssldir,
-  $puppet_ca_server,
-  $puppet_user,
-  $puppet_group,
-  $activemq_user,
-  $activemq_group,
-  $stomp_port,
-  $activemq_confdir,
-  $mc_enable_stomp_ssl
+  $machine_is_a_ca      = $mcollective::params::machine_is_a_ca,
+  $machine_is_a_console = $mcollective::params::machine_is_a_console,
+  $machine_is_a_master  = $mcollective::params::machine_is_a_master,
+  $mc_confdir           = $mcollective::params::mc_confdir,
+  $mc_username          = $mcollective::params::mc_username,
+  $mc_user_homedir      = $mcollective::params::mc_user_homedir,
+  $puppet_ssldir        = $mcollective::params::puppet_ssldir,
+  $puppet_ca_server     = $mcollective::params::puppet_ca_server,
+  $puppet_user          = $mcollective::params::puppet_user,
+  $puppet_group         = $mcollective::params::puppet_group,
+  $activemq_user        = $mcollective::params::activemq_user,
+  $activemq_group       = $mcollective::params::activemq_group,
+  $stomp_port           = $mcollective::params::stomp_port,
+  $activemq_confdir     = $mcollective::params::activemq_confdir,
+  $mc_enable_stomp_ssl  = $mcollective::params::mc_enable_stomp_ssl
 ) {
 
   File {
