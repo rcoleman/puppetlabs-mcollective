@@ -21,6 +21,7 @@
 class mcollective::client(
   $version,
   $config,
+  $global_client_config,
   $manage_packages,
   $config_file
 ) inherits mcollective::params { 
@@ -31,14 +32,15 @@ class mcollective::client(
 			before => File['client_config'],
 	  }
   }
-		
-	file { 'client_config':
-	  ensure  => present,
-    path    => $config_file,
-    content => $config,
-    mode    => '0600',
-    owner   => $client_config_owner,
-    group   => $client_config_group,
-  }
 
+  if $global_client_config {
+	  file { 'client_config':
+	    ensure  => present,
+      path    => $config_file,
+      content => $config,
+      mode    => '0600',
+      owner   => $client_config_owner,
+      group   => $client_config_group,
+    }
+  }
 }
