@@ -53,6 +53,11 @@ class mcollective::params (
   validate_hash($plugin_params)
   validate_re($mc_confdir, '^/')
 
+  # Q: Why are we using UNSET here?
+  # A: Because of this issue: http://projects.puppetlabs.com/issues/9848
+  #    The order that variables are parsed in the parameter declaration
+  #    section of a class is unpredictable, and so defaulting parameters
+  #    based on the value of other parameters requires the UNSET pattern.
   if $client_config_file == 'UNSET' {
     $client_config_file_real = "${mc_confdir}/client.cfg"
   } else {
