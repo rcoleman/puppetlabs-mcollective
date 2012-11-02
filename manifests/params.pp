@@ -48,16 +48,16 @@ class mcollective::params (
   $machine_is_a_ca      = false,
   $machine_is_a_console = false,
   $machine_is_a_master  = false,
-  $mc_username,
-  $mc_user_homedir,
+  $mc_username          = 'mcoadmin',
+  $mc_user_homedir      = '/home/mcoadmin',
   $puppet_ssldir        = '/var/lib/puppet/ssl',
   $puppet_ca_server     = 'puppet',
   $puppet_user          = 'puppet',
   $puppet_group         = 'puppet',
-  $activemq_user,
-  $activemq_group,
-  $activemq_confdir,
-  $mc_enable_stomp_ssl
+  $activemq_user        = 'activemq',
+  $activemq_group       = 'activemq',
+  $activemq_confdir     = '/etc/activemq',
+  $mc_enable_stomp_ssl  = true,
 ) {
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
   validate_re($mc_security_psk, '^[^ \t]+$')
