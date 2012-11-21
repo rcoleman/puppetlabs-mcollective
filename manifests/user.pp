@@ -35,7 +35,7 @@ define mcollective::user(
       # Create the certificates for the user on the CA
       exec { 'mcollective client certificate':
         command => "puppet cert --generate puppet-internal-${name}-mcollective-client",
-        creates => "${puppet_ssldir}/certs/puppet-internal-${name}-mcollective-client",
+        creates => "${puppet_ssldir}/certs/puppet-internal-${name}-mcollective-client.pem",
         before  => [
                      File["${name}-public.pem"],
                      File["${home_directory}/.mcollective.d/${name}-private.pem"],
